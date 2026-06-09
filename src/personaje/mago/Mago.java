@@ -1,8 +1,9 @@
-package personaje;
+package personaje.mago;
 
 import java.util.List;
 
 import hechizos.Hechizo;
+import personaje.Personaje;
 
 public class Mago extends Personaje{
 	

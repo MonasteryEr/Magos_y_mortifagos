@@ -1,8 +1,9 @@
-package personaje;
+package personaje.mortifago;
 
 import java.util.List;
 
 import hechizos.Hechizo;
+import personaje.Personaje;
 
 public class Mortifagos extends Personaje {
 
