@@ -19,101 +19,105 @@ public abstract class Personaje {
 	
 	public void lanzarHechizo(Hechizo hechizo, Personaje objetivo) {};
 	
-	public abstract int calcularEfecto(String tipo, int dañoBase);
 }*/
 
 public abstract class Personaje {
 
-    private String nombre;
-    private int nivelMagia;
-    private int puntosVida;
-    private List<Hechizo> hechizos;
+	private String nombre;
+	private int nivelMagia;
+	private int puntosVida;
+	private List<Hechizo> hechizos;
 
-    public Personaje(String nombre, int nivelMagia, int puntosVida) {
-        this.nombre = nombre;
-        this.nivelMagia = nivelMagia;
-        this.puntosVida = puntosVida;
-        this.hechizos = new ArrayList<>();
-    }
+	public Personaje(String nombre, int nivelMagia, int puntosVida) {
+		this.nombre = nombre;
+		this.nivelMagia = nivelMagia;
+		this.puntosVida = puntosVida;
+		this.hechizos = new ArrayList<>();
+	}
 
-    // =====================
-    // Getters
-    // =====================
+	// =====================
+	// Getters
+	// =====================
 
-    public String getNombre() {
-        return nombre;
-    }
+	public Personaje(String nombre, int nivelMagia) {
+		this.nombre = nombre;
+		this.nivelMagia = nivelMagia;
+	}
 
-    public int getNivelMagia() {
-        return nivelMagia;
-    }
+	public void setPuntosVida(int puntosVida) {
+		this.puntosVida = puntosVida;
+	}
+	
+	public void setHechizos(List<Hechizo> hechizos) {
+		this.hechizos = hechizos;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
 
-    public int getPuntosVida() {
-        return puntosVida;
-    }
+	public int getNivelMagia() {
+		return nivelMagia;
+	}
 
-    public List<Hechizo> getHechizos() {
-        return new ArrayList<>(hechizos);
-    }
+	public int getPuntosVida() {
+		return puntosVida;
+	}
 
-    // =====================
-    // Gestión de hechizos
-    // =====================
+	public List<Hechizo> getHechizos() {
+		return new ArrayList<>(hechizos);
+	}
 
-    public void aprenderHechizo(Hechizo hechizo) {
-        hechizos.add(hechizo);
-    }
+	// =====================
+	// Gestión de hechizos
+	// =====================
 
-    public void lanzarHechizo(Hechizo hechizo, Personaje objetivo) {
-        if (!estaVivo()) {
-            throw new IllegalStateException(
-                nombre + " está eliminado y no puede lanzar hechizos."
-            );
-        }
+	public void aprenderHechizo(Hechizo hechizo) {
+		hechizos.add(hechizo);
+	}
 
-        hechizo.ejecutar(this, objetivo);
-    }
+	public void lanzarHechizo(Hechizo hechizo, Personaje objetivo) {
+		if (!estaVivo()) {
+			throw new IllegalStateException(nombre + " está eliminado y no puede lanzar hechizos.");
+		}
 
-    // =====================
-    // Vida
-    // =====================
+		hechizo.ejecutar(this, objetivo);
+	}
 
-    public void recibirDanio(int cantidad) {
-        if (cantidad < 0) {
-            throw new IllegalArgumentException(
-                "El daño no puede ser negativo."
-            );
-        }
+	// =====================
+	// Vida
+	// =====================
 
-        puntosVida -= cantidad;
+	public void recibirDanio(int cantidad) {
+		if (cantidad < 0) {
+			throw new IllegalArgumentException("El daño no puede ser negativo.");
+		}
+		puntosVida -= cantidad;
+		if (puntosVida < 0) {
+			puntosVida = 0;
+		}
+	}
 
-        if (puntosVida < 0) {
-            puntosVida = 0;
-        }
-    }
+	public void curar(int cantidad) {
+		if (cantidad < 0) {
+			throw new IllegalArgumentException("La curación no puede ser negativa.");
+		}
+		puntosVida += cantidad;
+	}
 
-    public void curar(int cantidad) {
-        if (cantidad < 0) {
-            throw new IllegalArgumentException(
-                "La curación no puede ser negativa."
-            );
-        }
+	public boolean estaVivo() {
+		return puntosVida > 0;
+	}
 
-        puntosVida += cantidad;
-    }
+	// =====================
+	// Polimorfismo
+	// =====================
 
-    public boolean estaVivo() {
-        return puntosVida > 0;
-    }
+	/**
+	 * Permite que cada tipo de personaje modifique la potencia de sus hechizos.
+	 */
+	public abstract double getModificadorMagia();
 
-    // =====================
-    // Polimorfismo
-    // =====================
-
-    /**
-     * Permite que cada tipo de personaje
-     * modifique la potencia de sus hechizos.
-     */
-    public abstract double getModificadorMagia();
+	public abstract int calcularEfecto(String tipo, int dañoBase);
 
 }
