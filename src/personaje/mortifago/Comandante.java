@@ -1,14 +1,21 @@
 package personaje.mortifago;
 
-import java.util.List;
-
-import hechizos.Hechizo;
+import hechizos.AvadaKedabra;
 
 public class Comandante extends Mortifagos {
 
-    public Comandante(String nombre, int vida, int mana, List<Hechizo> hechizos) {
-        super(nombre, vida, mana, hechizos);
-        //TODO Auto-generated constructor stub
-    }
+	private static final int VIDA_POR_NIVEL = 120;
+	
+	public Comandante(String nombre, int nivelMagia) {
+		super(nombre, nivelMagia);
+		aprenderHechizo(new AvadaKedabra());
+		setPuntosVida(nivelMagia * VIDA_POR_NIVEL);
+	}
+
+	@Override
+	public double modificadorMagia() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

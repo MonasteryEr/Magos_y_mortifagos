@@ -1,15 +1,13 @@
 package personaje.mortifago;
 
-import java.util.List;
-
-import hechizos.Hechizo;
+import hechizos.TipoHechizo;
 import personaje.Personaje;
 
 public class Mortifagos extends Personaje {
 
-	public Mortifagos(String nombre, int vida, int mana, List<Hechizo> hechizos) {
-		super(nombre, vida, mana);
-		// TODO Auto-generated constructor stub
+	public Mortifagos(String nombre, int vida) {
+		super(nombre, vida);
+		setPasiva(TipoHechizo.ATAQUE);
 	}
 
 	@Override
@@ -19,7 +17,7 @@ public class Mortifagos extends Personaje {
 	}
 
 	@Override
-	public double getModificadorMagia() {
+	public double modificadorMagia() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

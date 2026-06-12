@@ -1,31 +1,24 @@
 package personaje.mago;
 
-import java.util.List;
-
-import hechizos.Hechizo;
+import hechizos.TipoHechizo;
 import personaje.Personaje;
 
-public abstract class Mago extends Personaje{
-	
-	/*
-	public Mago(String nombre, int vida, int mana, List<Hechizo> hechizos) {
-		super(nombre, vida, mana, hechizos);
-		// TODO Auto-generated constructor stub
-	}
-*/
+public abstract class Mago extends Personaje {
+
 	public Mago(String nombre, int nivelMagia) {
 		super(nombre, nivelMagia);
+		setPasiva(TipoHechizo.CURACION);
 	}
+	
+	
 
 	@Override
 	public int calcularEfecto(String tipo, int dañoBase) {
-		
 		return 0;
 	}
 
 	@Override
-	public double getModificadorMagia() {
-		// TODO Auto-generated method stub
+	public double modificadorMagia() {
 		return 0;
 	};
 

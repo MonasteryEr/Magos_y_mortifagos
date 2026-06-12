@@ -1,11 +1,28 @@
 package personaje.mago;
 
-import java.util.List;
-import hechizos.Hechizo;
+import hechizos.Protego;
+import hechizos.TipoHechizo;
 
 public class Alumno extends Mago{
-    public Alumno(String nombre, int vida, int mana, List<Hechizo> hechizos) {
-        super(nombre, vida);
-        //TODO Auto-generated constructor stub
-    }
+
+	private static final int VIDA_POR_NIVEL = 60;
+	
+	public Alumno(String nombre, int nivelMagia) {
+		super(nombre, nivelMagia);
+		aprenderHechizo(new Protego());
+		setPuntosVida(nivelMagia * VIDA_POR_NIVEL);
+	}
+
+	@Override
+	public double modificadorMagia() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setPasiva(TipoHechizo pasiva) {
+		// VER
+		
+	}
+
 }

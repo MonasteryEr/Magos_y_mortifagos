@@ -1,8 +1,12 @@
 package personaje;
 
 import hechizos.Hechizo;
+import hechizos.TipoHechizo;
+
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
 /*
 public abstract class Personaje {
 	private String nombre;
@@ -26,32 +30,26 @@ public abstract class Personaje {
 	private String nombre;
 	private int nivelMagia;
 	private int puntosVida;
-	private List<Hechizo> hechizos;
+	private TipoHechizo pasiva;
+	private Set<Hechizo> hechizos;
 
-	public Personaje(String nombre, int nivelMagia, int puntosVida) {
-		this.nombre = nombre;
-		this.nivelMagia = nivelMagia;
-		this.puntosVida = puntosVida;
-		this.hechizos = new ArrayList<>();
-	}
-
-	// =====================
-	// Getters
-	// =====================
 
 	public Personaje(String nombre, int nivelMagia) {
 		this.nombre = nombre;
 		this.nivelMagia = nivelMagia;
+		hechizos = new HashSet<>();
 	}
 
 	public void setPuntosVida(int puntosVida) {
 		this.puntosVida = puntosVida;
 	}
-	
-	public void setHechizos(List<Hechizo> hechizos) {
+
+	public abstract void setPasiva(TipoHechizo pasiva);
+
+	public void setHechizos(Set<Hechizo> hechizos) {
 		this.hechizos = hechizos;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -68,10 +66,6 @@ public abstract class Personaje {
 		return new ArrayList<>(hechizos);
 	}
 
-	// =====================
-	// Gestión de hechizos
-	// =====================
-
 	public void aprenderHechizo(Hechizo hechizo) {
 		hechizos.add(hechizo);
 	}
@@ -83,10 +77,6 @@ public abstract class Personaje {
 
 		hechizo.ejecutar(this, objetivo);
 	}
-
-	// =====================
-	// Vida
-	// =====================
 
 	public void recibirDanio(int cantidad) {
 		if (cantidad < 0) {
@@ -116,7 +106,7 @@ public abstract class Personaje {
 	/**
 	 * Permite que cada tipo de personaje modifique la potencia de sus hechizos.
 	 */
-	public abstract double getModificadorMagia();
+	public abstract double modificadorMagia();
 
 	public abstract int calcularEfecto(String tipo, int dañoBase);
 

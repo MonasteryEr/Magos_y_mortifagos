@@ -1,13 +1,22 @@
 package personaje.mortifago;
 
-import java.util.List;
-import hechizos.Hechizo;
+import hechizos.Expelliarmus;
+import hechizos.Protego;
 
 public class Seguidor extends Mortifagos {
 
-    public Seguidor(String nombre, int vida, int mana, List<Hechizo> hechizos) {
-        super(nombre, vida, mana, hechizos);
-        //TODO Auto-generated constructor stub
-    }
+	private static final int VIDA_POR_NIVEL = 60;
+	
+	public Seguidor(String nombre, int nivelMagia) {
+		super(nombre, nivelMagia);
+		aprenderHechizo(new Protego());
+		aprenderHechizo(new Expelliarmus());
+		setPuntosVida(nivelMagia * VIDA_POR_NIVEL);
+	}
+
+	@Override
+	public double modificadorMagia() {
+		return 0;
+	}
 
 }

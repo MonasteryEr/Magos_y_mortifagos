@@ -1,20 +1,23 @@
 package personaje.mago;
 
-import java.util.List;
+import java.util.Set;
 
 import hechizos.Expelliarmus;
-import hechizos.Hechizo;
 
 public class Auror extends Mago {
 
-	private final int VIDA_INICIAL = 100;
-	private List<Hechizo> hechizosPropios;
-	
+	private static final int VIDA_POR_NIVEL = 100;
+
 	public Auror(String nombre, int nivelMagia) {
 		super(nombre, nivelMagia);
-		super.setPuntosVida(nivelMagia * VIDA_INICIAL);
-		hechizosPropios.add(new Expelliarmus());
-		setHechizos(hechizosPropios);
+		aprenderHechizo(new Expelliarmus());
+		setPuntosVida(nivelMagia * VIDA_POR_NIVEL);
+	}
+
+	@Override
+	public double modificadorMagia() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
