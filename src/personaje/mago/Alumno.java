@@ -1,28 +1,19 @@
 package personaje.mago;
 
 import hechizos.Protego;
-import hechizos.TipoHechizo;
+import personaje.TipoPersonaje;
 
-public class Alumno extends Mago{
+public class Alumno extends Mago {
 
-	private static final int VIDA_POR_NIVEL = 60;
-	
-	public Alumno(String nombre, int nivelMagia) {
-		super(nombre, nivelMagia);
+	public Alumno(TipoPersonaje tipo, int nivelMagia) {
+		super(tipo, nivelMagia, tipo.getModVida(), tipo.getModDanio(), tipo.getModMana(),
+				tipo.getManaInicial());
 		aprenderHechizo(new Protego());
-		setPuntosVida(nivelMagia * VIDA_POR_NIVEL);
 	}
 
 	@Override
 	public double modificadorMagia() {
-		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public void setPasiva(TipoHechizo pasiva) {
-		// VER
-		
 	}
 
 }

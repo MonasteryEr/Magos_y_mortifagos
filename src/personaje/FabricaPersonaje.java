@@ -8,14 +8,14 @@ import personaje.mortifago.Seguidor;
 
 public class FabricaPersonaje {
 
-	public static Personaje crear(String tipo, String nombre, int nivel) {
-		return switch (tipo) {
-		case "auror" -> new Auror(nombre, nivel);
-		case "alumno" -> new Alumno(nombre, nivel);
-		case "maestro" -> new Maestro(nombre, nivel);
-		case "comandante" -> new Comandante(nombre, nivel);
-		case "seguidor" -> new Seguidor(nombre, nivel);
-		default -> throw new IllegalArgumentException(tipo);
+	public static Personaje crear(TipoPersonaje nombre, int nivel) {
+		nivel *= 10;
+		return switch (nombre) {
+		case AUROR -> new Auror(nombre, nivel);
+		case ALUMNO -> new Alumno(nombre, nivel);
+		case MAESTRO -> new Maestro(nombre, nivel);
+		case COMANDANTE -> new Comandante(nombre, nivel);
+		case SEGUIDOR -> new Seguidor(nombre, nivel);
 		};
 	}
 

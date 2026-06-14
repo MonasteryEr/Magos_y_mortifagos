@@ -1,17 +1,14 @@
 package personaje.mago;
 
-import java.util.Set;
-
 import hechizos.Expelliarmus;
+import personaje.TipoPersonaje;
 
 public class Auror extends Mago {
 
-	private static final int VIDA_POR_NIVEL = 100;
-
-	public Auror(String nombre, int nivelMagia) {
-		super(nombre, nivelMagia);
+	public Auror(TipoPersonaje tipo, int nivelMagia) {
+		super(tipo, nivelMagia, tipo.getModVida(), tipo.getModDanio(), tipo.getModMana(),
+				tipo.getManaInicial());
 		aprenderHechizo(new Expelliarmus());
-		setPuntosVida(nivelMagia * VIDA_POR_NIVEL);
 	}
 
 	@Override

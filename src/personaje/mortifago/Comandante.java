@@ -1,15 +1,14 @@
 package personaje.mortifago;
 
 import hechizos.AvadaKedabra;
+import personaje.TipoPersonaje;
 
 public class Comandante extends Mortifagos {
 
-	private static final int VIDA_POR_NIVEL = 120;
-	
-	public Comandante(String nombre, int nivelMagia) {
-		super(nombre, nivelMagia);
+	public Comandante(TipoPersonaje tipo, int nivelMagia) {
+		super(tipo, nivelMagia, tipo.getModVida(), tipo.getModDanio(), tipo.getModMana(),
+				tipo.getManaInicial());
 		aprenderHechizo(new AvadaKedabra());
-		setPuntosVida(nivelMagia * VIDA_POR_NIVEL);
 	}
 
 	@Override
