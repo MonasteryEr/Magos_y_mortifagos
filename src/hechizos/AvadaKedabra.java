@@ -5,20 +5,18 @@ import personaje.Personaje;
 public class AvadaKedabra implements Hechizo{
 
 	@Override
-	public void ejecutar(Personaje lanzador, Personaje objetico) {
-		
+	public void ejecutar(Personaje lanzador, Personaje objetivo) {
+		objetivo.setVidaAct(0);
 	}
 
 	@Override
 	public TipoHechizo getTipo() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getTipo'");
+		return TipoHechizo.DEFINITIVA;
 	}
 
 	@Override
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getNombre'");
+		return "Avada Kedabra";
 	}
 	
 	

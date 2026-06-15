@@ -7,7 +7,7 @@ public class Comandante extends Mortifagos {
 
 	public Comandante(TipoPersonaje tipo, int nivelMagia) {
 		super(tipo, nivelMagia, tipo.getModVida(), tipo.getModDanio(), tipo.getModMana(),
-				tipo.getManaInicial());
+				tipo.getManaInicial(),0);
 		aprenderHechizo(new AvadaKedabra());
 	}
 

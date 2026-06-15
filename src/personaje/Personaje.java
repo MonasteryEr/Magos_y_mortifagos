@@ -38,10 +38,11 @@ public abstract class Personaje {
 	private int manaMax;
 	private int manaAct;
 	private int dañoAtaque;
+	private int defenza;
 	private TipoHechizo pasiva;
 	private Set<Hechizo> hechizos;
 
-	public Personaje(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque) {
+	public Personaje(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque, int defenza) {
 		this.tipo = tipo;
 		this.nivelMagia = nivelMagia;
 
@@ -63,6 +64,10 @@ public abstract class Personaje {
 
 	public void setHechizos(Set<Hechizo> hechizos) {
 		this.hechizos = hechizos;
+	}
+	
+	public void setDefenza(int defenza) {
+		this.defenza = defenza;
 	}
 
 	public int getDañoAtaque() {
@@ -103,6 +108,11 @@ public abstract class Personaje {
 	public void recibirDanio(int cantidad) {
 		if (cantidad < 0) {
 			throw new IllegalArgumentException("El daño no puede ser negativo.");
+		}
+		if(defenza >= cantidad) {
+			cantidad = 0;
+		}else {
+			cantidad-= defenza;
 		}
 		vidaAct -= cantidad;
 		if (vidaAct < 0) {

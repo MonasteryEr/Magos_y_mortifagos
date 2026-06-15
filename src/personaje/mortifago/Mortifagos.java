@@ -6,8 +6,8 @@ import personaje.TipoPersonaje;
 
 public class Mortifagos extends Personaje {
 
-	public Mortifagos(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque) {
-		super(tipo, nivelMagia, vidaMax, manaMax, manaAct, dañoAtaque);
+	public Mortifagos(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque, int defenza) {
+		super(tipo, nivelMagia, vidaMax, manaMax, manaAct, dañoAtaque, defenza);
 		setPasiva(TipoHechizo.ATAQUE);
 	}
 
