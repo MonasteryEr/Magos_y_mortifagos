@@ -22,9 +22,11 @@ public class Alumno extends Mago {
 		return "ALUMNO " + numero;
 	}
 	
+	
+	
 	@Override
 	public double modificadorMagia() {
-		return 1;
+		return 1.25;
 	}
 
 }

@@ -1,11 +1,13 @@
 package personaje;
 
 public enum TipoPersonaje {
-	AUROR(-40, -10, -50, -20), 
-	ALUMNO(-40, -10, -40, 0), 
-	COMANDANTE(20, 10, 0, 20), 
-	MAESTRO(-30, 0, 0, -20),
-	SEGUIDOR(-40, -10, -40, -10);
+	//MAGOS
+	ALUMNO(-10, -8, -10, -5), 
+	MAESTRO(0, 5, -5, 5),
+	AUROR(15, 13, 0, 10), 
+	//MORTIFAGOS
+	SEGUIDOR(-10, -8, -10, -5),
+	COMANDANTE(20, 10, 0, 13);
 
 	private final int modVida;
 	private final int modDanio;

@@ -21,7 +21,7 @@ public class Auror extends Mago {
 	@Override
 	public double modificadorMagia() {
 		// TODO Auto-generated method stub
-		return 1;
+		return 1.6;
 	}
 
 }

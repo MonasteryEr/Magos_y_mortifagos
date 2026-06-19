@@ -23,7 +23,7 @@ private int numero;
 	@Override
 	public double modificadorMagia() {
 		// TODO Auto-generated method stub
-		return 1;
+		return 1.5;
 	}
 
 }

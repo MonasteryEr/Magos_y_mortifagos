@@ -180,9 +180,8 @@ hechizosUsadosEnRonda = new HashSet<>();
 	/**
 	 * Permite que cada tipo de personaje modifique la potencia de sus hechizos.
 	 */
-	public abstract double modificadorMagia(); // dañoAtaque * dañoHechizo / 60
-
-	public abstract int calcularEfecto(String tipo, int dañoBase);
+	public abstract double modificadorMagia();
+	public abstract int calcularEfecto(String tipo, int cantidadBase);
 	public int getDefenza() {
 		return defenza;
 	}

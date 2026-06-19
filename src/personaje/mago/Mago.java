@@ -10,17 +10,19 @@ public abstract class Mago extends Personaje {
 		super(tipo, nivelMagia, vidaMax, manaMax, manaAct, dañoAtaque,defenza);
 		setPasiva(TipoHechizo.CURACION);
 	}
-
-	@Override
-	public int calcularEfecto(String tipo, int dañoBase) {
-		return (int)(dañoBase * modificadorMagia());
-	}
 	
 	public abstract String getEtiqueta();
 	
+	
 	@Override
-	public double modificadorMagia() {
-		return 1; // Solo para probar los enfrentamientos el return 1 hay que ver como seria el tema de los modificadores
-	};
+	public int calcularEfecto(String tipo, int cantidadBase) {
+		cantidadBase*= modificadorMagia();
+		return switch(tipo) {
+		case "ATAQUE"->(int)(cantidadBase*1.25);
+		case "DEFENSA"->(int)(cantidadBase* 1.25);
+		default -> cantidadBase;
+		};				
+				
+	}
 
 }

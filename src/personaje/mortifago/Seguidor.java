@@ -24,7 +24,7 @@ public class Seguidor extends Mortifagos {
     }
 	@Override
 	public double modificadorMagia() {
-		return 1;
+		return 1.35;
 	}
 
 }
