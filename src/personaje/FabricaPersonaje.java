@@ -1,5 +1,5 @@
 package personaje;
-
+import java.util.Random;
 import personaje.mago.Alumno;
 import personaje.mago.Auror;
 import personaje.mago.Maestro;
@@ -7,7 +7,7 @@ import personaje.mortifago.Comandante;
 import personaje.mortifago.Seguidor;
 
 public class FabricaPersonaje {
-
+	private static Random rand = new Random();
 	public static Personaje crear(TipoPersonaje nombre, int nivel) {
 		nivel *= 10;
 		return switch (nombre) {
@@ -19,4 +19,28 @@ public class FabricaPersonaje {
 		};
 	}
 
+	
+	public static Personaje crearMagoAleatorio(int nivel) {
+
+        TipoPersonaje[] magos = {
+                TipoPersonaje.AUROR,
+                TipoPersonaje.ALUMNO,
+                TipoPersonaje.MAESTRO
+        };
+
+        return crear(magos[rand.nextInt(magos.length)], nivel);
+    }
+
+    public static Personaje crearMortifagoAleatorio(int nivel) {
+
+        TipoPersonaje[] mortifagos = {
+                TipoPersonaje.SEGUIDOR,
+                TipoPersonaje.COMANDANTE
+        };
+
+        return crear(mortifagos[rand.nextInt(mortifagos.length)], nivel);
+    }
+	
+	
+	
 }

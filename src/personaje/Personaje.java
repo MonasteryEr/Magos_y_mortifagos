@@ -1,5 +1,5 @@
 package personaje;
-
+import java.util.Random;
 import hechizos.Hechizo;
 import hechizos.TipoHechizo;
 
@@ -42,12 +42,48 @@ public abstract class Personaje {
 	private TipoHechizo pasiva;
 	private Set<Hechizo> hechizos;
 
-	public Personaje(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque, int defenza) {
-		this.tipo = tipo;
-		this.nivelMagia = nivelMagia;
+	private Set<Hechizo> hechizosUsadosEnRonda;
+	
+	private static int contador = 1;
+	
+	
+	public Personaje(TipoPersonaje tipo,
+            int nivelMagia,
+            int modVida,
+            int modDanio,
+            int modMana,
+            int manaInicial,
+            int defensa) {
 
-		hechizos = new HashSet<>();
-	}
+this.tipo = tipo;
+this.nivelMagia = nivelMagia;
+
+this.vidaMax = nivelMagia + VIDA_MAX_POR_NIVEL + modVida;
+this.vidaAct = vidaMax;
+
+this.manaMax = nivelMagia + MANA_MAX_POR_NIVEL + modMana;
+this.manaAct = nivelMagia + MANA_INI_POR_NIVEL + manaInicial;
+
+this.dañoAtaque = nivelMagia + DAÑO_POR_NIVEL + modDanio;
+
+this.defenza = defensa;
+
+hechizos = new HashSet<>();
+hechizosUsadosEnRonda = new HashSet<>();
+
+
+}
+	
+	
+//	//public Personaje(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque, int defenza) {
+//		this.tipo = tipo;
+//		this.nivelMagia = nivelMagia;
+//		this.vidaAct = vidaMax;
+//		this.vidaMax = vidaMax;
+//		
+//		hechizos = new HashSet<>();
+//		hechizosUsadosEnRonda = new HashSet<>();
+//	}
 
 	public void estadisticasIniciales(TipoPersonaje nombre) {
 		System.out.println("Vida Maxima: " + getVidaMax() + "Mana Maximo: " + getManaMax() + "Mana Inicial: "
@@ -121,10 +157,16 @@ public abstract class Personaje {
 	}
 
 	public void curar(int cantidad) {
-		if (cantidad < 0) {
-			throw new IllegalArgumentException("La curación no puede ser negativa.");
-		}
-		vidaAct += cantidad;
+
+	    if (cantidad < 0) {
+	        throw new IllegalArgumentException("La curación no debe ser negativa.");
+	    } 
+
+	    vidaAct += cantidad;
+
+	    if (vidaAct > vidaMax) {
+	        vidaAct = vidaMax; //No exceder mi limite de vida.
+	    }
 	}
 
 	public boolean estaVivo() {
@@ -141,7 +183,9 @@ public abstract class Personaje {
 	public abstract double modificadorMagia(); // dañoAtaque * dañoHechizo / 60
 
 	public abstract int calcularEfecto(String tipo, int dañoBase);
-
+	public int getDefenza() {
+		return defenza;
+	}
 	public int getManaMax() {
 		return manaMax;
 	}
@@ -175,4 +219,46 @@ public abstract class Personaje {
 		dañoAtaque = nivelMagia + DAÑO_POR_NIVEL + cantidad;
 	}
 
+	
+	public Hechizo obtenerHechizoDisponible() {
+		
+		List <Hechizo> disponibles = new ArrayList<>();
+		
+		for(Hechizo h : hechizos) {
+			
+			if(!hechizosUsadosEnRonda.contains(h)) {
+				
+				disponibles.add(h);
+				
+				
+			}
+			
+			
+			
+		}
+		
+		if(disponibles.isEmpty()) {
+			
+			hechizosUsadosEnRonda.clear();
+			disponibles.addAll(hechizos);
+			
+			
+		}
+		
+		
+		 Random rand = new Random();
+
+		    Hechizo elegido = disponibles.get(
+		            rand.nextInt(disponibles.size()));
+
+		    hechizosUsadosEnRonda.add(elegido);
+
+		    return elegido;
+		
+		
+	}
+	
+	
+	
+	public abstract String getEtiqueta();
 }

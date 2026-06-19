@@ -6,7 +6,9 @@ public class Protego implements Hechizo{
 
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		objetivo.setDefenza(lanzador.getManaAct());
+		//objetivo.setDefenza(lanzador.getManaAct());
+		
+		lanzador.setDefenza(lanzador.calcularEfecto("DEFENSA", 20));
 	}
 
 	@Override
@@ -16,8 +18,8 @@ public class Protego implements Hechizo{
 
 	@Override
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getNombre'");
+		
+		return "Protego";
 	}
 
 }

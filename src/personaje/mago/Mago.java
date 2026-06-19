@@ -13,12 +13,14 @@ public abstract class Mago extends Personaje {
 
 	@Override
 	public int calcularEfecto(String tipo, int dañoBase) {
-		return 0;
+		return (int)(dañoBase * modificadorMagia());
 	}
-
+	
+	public abstract String getEtiqueta();
+	
 	@Override
 	public double modificadorMagia() {
-		return 0;
+		return 1; // Solo para probar los enfrentamientos el return 1 hay que ver como seria el tema de los modificadores
 	};
 
 }

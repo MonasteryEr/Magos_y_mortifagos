@@ -6,7 +6,10 @@ public class Expelliarmus implements  Hechizo{
 
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		objetivo.recibirDanio(lanzador.getDañoAtaque());
+		
+		//objetivo.recibirDanio(lanzador.getDañoAtaque());
+		int daño = lanzador.calcularEfecto("ATAQUE", lanzador.getDañoAtaque());
+		objetivo.recibirDanio(daño);
 	}
 
 	@Override
@@ -16,8 +19,8 @@ public class Expelliarmus implements  Hechizo{
 
 	@Override
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getNombre'");
+		
+		return "Expelliarmus";
 	}
 
 }
