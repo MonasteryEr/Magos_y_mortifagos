@@ -97,7 +97,7 @@ public class Batallon {
 		        + " lanza "
 		        + hechizo.getNombre()
 		        + " sobre "
-		        + objetivo.getNombre());
+		        + objetivo.getTipo());
 
 		}
 		

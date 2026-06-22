@@ -2,11 +2,11 @@ package hechizos;
 
 import personaje.Personaje;
 
-public class AvadaKedabra implements Hechizo{
+public class AvadaKedabra implements Hechizo {
 
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		objetivo.setVidaAct((int)(objetivo.getPuntosVida()*0.8));
+		objetivo.setVidaAct((int) (objetivo.getPuntosVida() * 0.8));
 	}
 
 	@Override
@@ -18,7 +18,5 @@ public class AvadaKedabra implements Hechizo{
 	public String getNombre() {
 		return "Avada Kedabra";
 	}
-	
-	
 
 }
