@@ -90,6 +90,7 @@ hechizosUsadosEnRonda = new HashSet<>();
 				+ getManaAct() + "Daño: " + getDañoAtaque());
 	}
 
+	//SETTERS
 	public void setVidaAct(int puntosVida) {
 		this.vidaAct = puntosVida;
 	}
@@ -106,6 +107,7 @@ hechizosUsadosEnRonda = new HashSet<>();
 		this.defenza = defenza;
 	}
 
+	//GETTERS
 	public int getDañoAtaque() {
 		return dañoAtaque;
 	}
