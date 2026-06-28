@@ -9,23 +9,7 @@ import java.util.Set;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-/*
-public abstract class Personaje {
-	private String nombre;
-	private int vida;
-	private int mana;
-	private List<Hechizo> hechizos; 
 
-	public Personaje(String nombre, int vida, int mana, List<Hechizo> hechizos) {
-		this.nombre = nombre;
-		this.vida = vida;
-		this.mana = mana;
-		this.hechizos = new ArrayList<>(hechizos);
-	}
-	
-	public void lanzarHechizo(Hechizo hechizo, Personaje objetivo) {};
-	
-}*/
 
 public abstract class Personaje {
 	protected static final int VIDA_MAX_POR_NIVEL = 100;
@@ -72,21 +56,13 @@ public abstract class Personaje {
 
 	}
 
-//	//public Personaje(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque, int defenza) {
-//		this.tipo = tipo;
-//		this.nivelMagia = nivelMagia;
-//		this.vidaAct = vidaMax;
-//		this.vidaMax = vidaMax;
-//		
-//		hechizos = new HashSet<>();
-//		hechizosUsadosEnRonda = new HashSet<>();
-//	}
 
 	public void estadisticasIniciales(TipoPersonaje nombre) {
 		System.out.println("Vida Maxima: " + getVidaMax() + "Mana Maximo: " + getManaMax() + "Mana Inicial: "
 				+ getManaAct() + "Daño: " + getDañoAtaque());
 	}
 
+	
 	// SETTERS
 	public void setVidaAct(int puntosVida) {
 		this.vidaAct = puntosVida;
@@ -103,6 +79,28 @@ public abstract class Personaje {
 	public void setDefenza(int defenza) {
 		this.defenza = defenza;
 	}
+	
+	public void setManaAct(int manaAct) {
+		this.manaAct = manaAct;
+	}
+	
+	public void setManaIni(int cantidad) {
+		this.manaAct = nivelMagia + MANA_INI_POR_NIVEL + cantidad;
+	}
+
+	public void setManaMax(int cantidad) {
+		this.manaMax = nivelMagia + MANA_MAX_POR_NIVEL + cantidad;
+	}
+
+	public void setVidaMax(int cantidad) {
+		vidaMax = nivelMagia + VIDA_MAX_POR_NIVEL - cantidad;
+		vidaAct = vidaMax;
+	}
+
+	public void setDañoAtaque(int cantidad) {
+		dañoAtaque = nivelMagia + DAÑO_POR_NIVEL + cantidad;
+	}
+	
 
 	// GETTERS
 	public int getDañoAtaque() {
@@ -133,9 +131,44 @@ public abstract class Personaje {
 
 		return getTipo() + "" + numero;
 	}
+	
+	public int getDefenza() {
+		return defenza;
+	}
 
+	public int getManaMax() {
+		return manaMax;
+	}
+
+	public int getManaAct() {
+		return manaAct;
+	}
+	
+	public int getVidaMax() {
+		return vidaMax;
+	}
+	
+	
+	// METODOS CON HECHIZOS
 	public void aprenderHechizo(Hechizo hechizo) {
 		hechizos.add(hechizo);
+	}
+	
+	public Hechizo obtenerHechizoDisponible() {
+		List<Hechizo> disponibles = new ArrayList<>();
+		for (Hechizo h : hechizos) {
+			if (!hechizosUsadosEnRonda.contains(h)) {
+				disponibles.add(h);
+			}
+		}
+		if (disponibles.isEmpty()) {
+			hechizosUsadosEnRonda.clear();
+			disponibles.addAll(hechizos);
+		}
+		Random rand = new Random();
+		Hechizo elegido = disponibles.get(rand.nextInt(disponibles.size()));
+		hechizosUsadosEnRonda.add(elegido);
+		return elegido;
 	}
 
 	public void lanzarHechizo(Hechizo hechizo, Personaje objetivo) {
@@ -177,69 +210,10 @@ public abstract class Personaje {
 		return vidaAct > 0;
 	}
 
-	// =====================
+	
 	// Polimorfismo
-	// =====================
-
-	/**
-	 * Permite que cada tipo de personaje modifique la potencia de sus hechizos.
-	 */
 	public abstract double modificadorMagia();
 
 	public abstract int calcularEfecto(String tipo, int cantidadBase);
-
-	public int getDefenza() {
-		return defenza;
-	}
-
-	public int getManaMax() {
-		return manaMax;
-	}
-
-	public int getManaAct() {
-		return manaAct;
-	}
-
-	public void setManaAct(int manaAct) {
-		this.manaAct = manaAct;
-	}
-
-	public int getVidaMax() {
-		return vidaMax;
-	}
-
-	public void setManaIni(int cantidad) {
-		this.manaAct = nivelMagia + MANA_INI_POR_NIVEL + cantidad;
-	}
-
-	public void setManaMax(int cantidad) {
-		this.manaMax = nivelMagia + MANA_MAX_POR_NIVEL + cantidad;
-	}
-
-	public void setVidaMax(int cantidad) {
-		vidaMax = nivelMagia + VIDA_MAX_POR_NIVEL - cantidad;
-		vidaAct = vidaMax;
-	}
-
-	public void setDañoAtaque(int cantidad) {
-		dañoAtaque = nivelMagia + DAÑO_POR_NIVEL + cantidad;
-	}
-
-	public Hechizo obtenerHechizoDisponible() {
-		List<Hechizo> disponibles = new ArrayList<>();
-		for (Hechizo h : hechizos) {
-			if (!hechizosUsadosEnRonda.contains(h)) {
-				disponibles.add(h);
-			}
-		}
-		if (disponibles.isEmpty()) {
-			hechizosUsadosEnRonda.clear();
-			disponibles.addAll(hechizos);
-		}
-		Random rand = new Random();
-		Hechizo elegido = disponibles.get(rand.nextInt(disponibles.size()));
-		hechizosUsadosEnRonda.add(elegido);
-		return elegido;
-	}
 
 }

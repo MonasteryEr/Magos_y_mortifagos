@@ -4,71 +4,139 @@ import batallon.Batallon;
 import java.util.Random;
 import personaje.Personaje;
 
+import java.util.Random;
+
 public class Main {
 
-	public static void main(String[] args) {
+    // Colores ANSI
+    static final String RESET  = "\u001B[0m";
+    static final String BOLD   = "\u001B[1m";
+    static final String BLUE   = "\u001B[34m";
+    static final String CYAN   = "\u001B[36m";
+    static final String RED    = "\u001B[31m";
+    static final String YELLOW = "\u001B[33m";
+    static final String GREEN  = "\u001B[32m";
 
-		Batallon batallonMagos = new Batallon();
+    public static void main(String[] args) {
 
-		Batallon batallonMortifagos = new Batallon();
+        Batallon batallonMagos = new Batallon();
+        Batallon batallonMortifagos = new Batallon();
 
-		for (int i = 0; i < 3; i++) {
-			batallonMagos.agregarMagoAleatorio(5);
-			batallonMortifagos.agregarMortifagoAleatorio(5);
-		}
+        for (int i = 0; i < 3; i++) {
+            batallonMagos.agregarMagoAleatorio(5);
+            batallonMortifagos.agregarMortifagoAleatorio(5);
+        }
 
-		Random rand = new Random();
+        Random rand = new Random();
 
-		System.out.println("Magos:");
+        // Mostrar equipos iniciales
+        titulo("✦  MAGOS  ✦", BLUE);
+        for (Personaje p : batallonMagos.getPersonajes()) {
+            mostrarPersonaje(p, BLUE);
+        }
 
-		for (Personaje p : batallonMagos.getPersonajes()) {
-			System.out.println(p.getEtiqueta() + " Vida: " + p.getPuntosVida());
-		}
+        System.out.println();
 
-		System.out.println("Mortifagos:");
+        titulo("☠  MORTÍFAGOS  ☠", RED);
+        for (Personaje p : batallonMortifagos.getPersonajes()) {
+            mostrarPersonaje(p, RED);
+        }
 
-		for (Personaje p : batallonMortifagos.getPersonajes()) {
-			System.out.println(p.getEtiqueta() + " Vida: " + p.getPuntosVida());
-		}
+        System.out.println();
 
-		while (batallonMagos.tienePersonajesSaludables() && batallonMortifagos.tienePersonajesSaludables()) {
+        // Batalla
+        int ronda = 1;
+        while (batallonMagos.tienePersonajesSaludables() && batallonMortifagos.tienePersonajesSaludables()) {
 
-			if (rand.nextBoolean()) {
+            separador(ronda);
 
-				batallonMagos.atacar(batallonMortifagos);
+            if (rand.nextBoolean()) {
+            	
+                batallonMagos.atacar(batallonMortifagos);
+                
+                if (batallonMortifagos.tienePersonajesSaludables()) {
+                	
+                    batallonMortifagos.atacar(batallonMagos);
+                    
+                }
+                
+            } else {
+            	
+                batallonMortifagos.atacar(batallonMagos);
+                
+                if (batallonMagos.tienePersonajesSaludables()) {
+                	
+                    batallonMagos.atacar(batallonMortifagos);
+                    
+                }
+                
+            }
 
-				if (batallonMortifagos.tienePersonajesSaludables()) {
+            // Estado después de la ronda
+            System.out.println();
+            System.out.println(BLUE + BOLD + "  Magos:" + RESET);
+            for (Personaje p : batallonMagos.getPersonajes()) {
+                mostrarPersonaje(p, BLUE);
+            }
+            
+            System.out.println(RED + BOLD + "  Mortífagos:" + RESET);
+            for (Personaje p : batallonMortifagos.getPersonajes()) {
+                mostrarPersonaje(p, RED);
+            }
 
-					batallonMortifagos.atacar(batallonMagos);
+            ronda++;
+        }
 
-				}
+        System.out.println();
 
-			} else {
+        // Resultado final
+        if (batallonMagos.tienePersonajesSaludables()) {
+        	
+            titulo("✦  ¡VICTORIA PARA LOS MAGOS!  ✦", GREEN);
+            
+        } else {
+        	
+            titulo("☠  ¡VICTORIA PARA LOS MORTÍFAGOS!  ☠", RED);
+            
+        }
+    }
 
-				batallonMortifagos.atacar(batallonMagos);
+    // Métodos auxiliares para formatear salida por pantalla
 
-				if (batallonMagos.tienePersonajesSaludables()) {
+    static void titulo(String texto, String color) {
+        int ancho = 42;
+        String linea = "═".repeat(ancho);
+        int espacios = (ancho - texto.length()) / 2;
+        int espaciosDer = ancho - texto.length() - espacios;
+        System.out.println(color + BOLD
+            + "╔" + linea + "╗\n"
+            + "║" + " ".repeat(espacios) + texto + " ".repeat(espaciosDer) + "║\n"
+            + "╚" + linea + "╝" + RESET);
+    }
 
-					batallonMagos.atacar(batallonMortifagos);
+    static void separador(int ronda) {
+        String texto = "  ⚔  ──── RONDA " + ronda + " ────  ⚔  ";
+        System.out.println("\n" + YELLOW + BOLD + texto + RESET);
+    }
 
-				}
+    static void barraDeVida(int vida, int vidaMax) {
+        int total = 20;
+        int bloques = (vidaMax > 0) ? (int) ((vida / (double) vidaMax) * total) : 0;
+        bloques = Math.max(0, Math.min(bloques, total));
 
-			}
+        String color;
+        if (bloques > 13)       color = GREEN;
+        else if (bloques > 6)   color = YELLOW;
+        else                    color = RED;
 
-			System.out.println("----------------------------");
+        String barra = "█".repeat(bloques) + "░".repeat(total - bloques);
+        System.out.print(color + "[" + barra + "] " + vida + "/" + vidaMax + RESET);
+    }
 
-		}
-
-		if (batallonMagos.tienePersonajesSaludables()) {
-
-			System.out.println("¡Los magos han ganado la batalla!");
-
-		} else {
-
-			System.out.println("¡Los mortífagos han ganado la batalla!");
-
-		}
-
-	}
-
+    static void mostrarPersonaje(Personaje p, String colorNombre) {
+        int vidaMax = p.getVidaMax();
+        System.out.print("  " + colorNombre + BOLD + p.getEtiqueta() + RESET + "  Vida: ");
+        barraDeVida(p.getPuntosVida(), vidaMax);
+        System.out.println();
+    }
 }

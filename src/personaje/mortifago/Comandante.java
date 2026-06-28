@@ -6,8 +6,10 @@ import hechizos.Protego;
 import personaje.TipoPersonaje;
 
 public class Comandante extends Mortifagos {
+	
 	public Comandante(TipoPersonaje tipo, int nivelMagia) {
 		super(tipo, nivelMagia, tipo.getModVida(), tipo.getModDanio(), tipo.getModMana(), tipo.getManaInicial(), 0);
+		
 		aprenderHechizo(new AvadaKedabra());
 		aprenderHechizo(new Expelliarmus());
 		aprenderHechizo(new Protego());

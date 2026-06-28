@@ -10,16 +10,16 @@ public class Protego implements Hechizo{
 		
 		lanzador.setDefenza(lanzador.calcularEfecto("DEFENSA", 20));
 	}
-
-	@Override
-	public TipoHechizo getTipo() {
-		return TipoHechizo.DEFENSA;
-	}
-
+	
 	@Override
 	public String getNombre() {
 		
 		return "Protego";
+	}
+
+	@Override
+	public TipoHechizo getTipo() {
+		return TipoHechizo.DEFENSA;
 	}
 
 }

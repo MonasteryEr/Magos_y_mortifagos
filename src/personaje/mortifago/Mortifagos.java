@@ -6,11 +6,10 @@ import personaje.TipoPersonaje;
 
 public abstract class Mortifagos extends Personaje {
 
-	public Mortifagos(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque,
-			int defenza) {
+	public Mortifagos(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque, int defenza) {
 		super(tipo, nivelMagia, vidaMax, manaMax, manaAct, dañoAtaque, defenza);
+		
 		setPasiva(TipoHechizo.ATAQUE);
-
 	}
 
 	@Override
@@ -23,7 +22,6 @@ public abstract class Mortifagos extends Personaje {
 		case "DEFENSA" -> cantidadBase;
 		default -> cantidadBase;
 		};
-
 	}
 
 }

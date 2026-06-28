@@ -6,9 +6,9 @@ import personaje.TipoPersonaje;
 
 public abstract class Mago extends Personaje {
 
-	public Mago(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque,
-			int defenza) {
+	public Mago(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque, int defenza) {
 		super(tipo, nivelMagia, vidaMax, manaMax, manaAct, dañoAtaque, defenza);
+		
 		setPasiva(TipoHechizo.CURACION);
 	}
 
@@ -20,7 +20,6 @@ public abstract class Mago extends Personaje {
 		case "DEFENSA" -> (int) (cantidadBase * 1.25);
 		default -> cantidadBase;
 		};
-
 	}
 
 }

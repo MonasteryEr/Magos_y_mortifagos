@@ -11,40 +11,33 @@ public class Batallon {
 	private Map <Personaje,List<Hechizo>> hechizosLanzados;
 	
 	public Batallon() {
-		
 		personajes = new ArrayList<>();
 		secuenciaAtaques = new ArrayList<>();
 		hechizosLanzados = new HashMap<>();
-		
 	}
+	
 	
 	public void agregarPersonaje(Personaje p) {
-		
 		personajes.add(p);
-		
 	}
+	
 	
 	public boolean tienePersonajesSaludables() {
-		
 		for(Personaje p: personajes) {
-			if(p.estaVivo())
-			{
+			if(p.estaVivo()) {
 				return true;
 			}
-			
 		}
-		return false;
 		
+		return false;
 	}
 	
+	
 	public Personaje obtenerPersonajeAleatorio() {
-		
 		List<Personaje> vivos = new ArrayList<>();
 		
 		for(Personaje p: personajes) {
-			
-			if(p.estaVivo())
-			{
+			if(p.estaVivo()) {
 				vivos.add(p);
 			}
 		}
@@ -53,13 +46,14 @@ public class Batallon {
 		return vivos.get(rand.nextInt(vivos.size()));
 	}
 	
+	
 	public void atacar(Batallon enemigo) {
-		 
 		Personaje atacante = obtenerPersonajeAleatorio();
+		
 		if(!atacante.estaVivo()) {
-			
 			return;
 		}
+		
 		Personaje objetivo = enemigo.obtenerPersonajeAleatorio();
 		
 		Hechizo hechizo = atacante.obtenerHechizoDisponible();
@@ -75,14 +69,13 @@ public class Batallon {
 		hechizosLanzados.get(atacante).add(hechizo);
 		
 		if (hechizo.getTipo() == TipoHechizo.DEFENSA) {
-
 		    System.out.println(
 		         atacante.getEtiqueta()
 		        + " lanza "
 		        + hechizo.getNombre()
 		        + " sobre sí mismo.");
-
-		}else if (hechizo.getTipo() == TipoHechizo.CURACION) {
+		    
+		} else if (hechizo.getTipo() == TipoHechizo.CURACION) {
 
 		    System.out.println(
 		        atacante.getEtiqueta()
@@ -104,13 +97,11 @@ public class Batallon {
 		atacante.lanzarHechizo(hechizo, objetivo);
 		 
 		if (hechizo.getTipo() == TipoHechizo.CURACION) {
-
 		    System.out.println(
 		        atacante.getEtiqueta() +
 		        " ahora tiene " +
 		        atacante.getPuntosVida() +
 		        " puntos de vida.");
-
 		}
 		else if (hechizo.getTipo() == TipoHechizo.DEFENSA) {
 
@@ -136,27 +127,13 @@ public class Batallon {
 		    }
 		}
 
-//		    System.out.println(
-//		            objetivo.getNombre() +
-//		            " queda con " +
-//		            objetivo.getPuntosVida() +
-//		            " puntos de vida.");
-//
-//		    if (!objetivo.estaVivo()) {
-//		        System.out.println(
-//		                objetivo.getNombre() +
-//		                " ha sido eliminado.");
-//		    }
+	    secuenciaAtaques.add(atacante);
 
-		    secuenciaAtaques.add(atacante);
-
-		    hechizosLanzados
-		            .computeIfAbsent(atacante, k -> new ArrayList<>())
-		            .add(hechizo);
-		 
+	    hechizosLanzados
+	            .computeIfAbsent(atacante, k -> new ArrayList<>())
+	            .add(hechizo);
 		 
 	}
-	
 	
 	
 	public void agregarMagoAleatorio(int nivel) {
