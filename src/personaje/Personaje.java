@@ -7,25 +7,13 @@ import hechizos.TipoHechizo;
 import java.util.List;
 import java.util.Set;
 
+import Estados.EstadoMuerto;
+import Estados.EstadoPersonaje;
+import Estados.EstadoVivo;
+
 import java.util.ArrayList;
 import java.util.HashSet;
-/*
-public abstract class Personaje {
-	private String nombre;
-	private int vida;
-	private int mana;
-	private List<Hechizo> hechizos; 
 
-	public Personaje(String nombre, int vida, int mana, List<Hechizo> hechizos) {
-		this.nombre = nombre;
-		this.vida = vida;
-		this.mana = mana;
-		this.hechizos = new ArrayList<>(hechizos);
-	}
-	
-	public void lanzarHechizo(Hechizo hechizo, Personaje objetivo) {};
-	
-}*/
 
 public abstract class Personaje {
 	protected static final int VIDA_MAX_POR_NIVEL = 100;
@@ -40,10 +28,11 @@ public abstract class Personaje {
 	private int manaMax;
 	private int manaAct;
 	private int dañoAtaque;
-	private int defenza;
+	private int defensa;
 	private TipoHechizo pasiva;
 	private Set<Hechizo> hechizos;
 	private int numero;
+	private EstadoPersonaje estado;
 
 	private Set<Hechizo> hechizosUsadosEnRonda;
 
@@ -63,13 +52,17 @@ public abstract class Personaje {
 
 		this.dañoAtaque = nivelMagia + DAÑO_POR_NIVEL + modDanio;
 
-		this.defenza = defensa;
+		this.defensa = defensa;
 
 		hechizos = new HashSet<>();
 		hechizosUsadosEnRonda = new HashSet<>();
 
 		this.numero = contador++;
 
+		this.estado = new EstadoVivo(this);
+
+		System.out.println(getEtiqueta() + " Vida: " + getPuntosVida());
+		
 	}
 
 //	//public Personaje(TipoPersonaje tipo, int nivelMagia, int vidaMax, int manaMax, int manaAct, int dañoAtaque, int defenza) {
@@ -90,6 +83,9 @@ public abstract class Personaje {
 	// SETTERS
 	public void setVidaAct(int puntosVida) {
 		this.vidaAct = puntosVida;
+		if (vidaAct <= 0 && estaVivo()) {
+			System.out.println(estado.morir());
+		}
 	}
 
 	public void setPasiva(TipoHechizo pasiva) {
@@ -101,7 +97,7 @@ public abstract class Personaje {
 	}
 
 	public void setDefenza(int defenza) {
-		this.defenza = defenza;
+		this.defensa = defenza;
 	}
 
 	// GETTERS
@@ -131,7 +127,7 @@ public abstract class Personaje {
 
 	public String getEtiqueta() {
 
-		return getTipo() + "" + numero;
+		return getTipo() + " " + numero;
 	}
 
 	public void aprenderHechizo(Hechizo hechizo) {
@@ -139,7 +135,7 @@ public abstract class Personaje {
 	}
 
 	public void lanzarHechizo(Hechizo hechizo, Personaje objetivo) {
-		if (!estaVivo()) {
+		if (estaMuerto()) {
 			throw new IllegalStateException(tipo + " está eliminado y no puede lanzar hechizos.");
 		}
 		hechizo.ejecutar(this, objetivo);
@@ -149,14 +145,14 @@ public abstract class Personaje {
 		if (cantidad < 0) {
 			throw new IllegalArgumentException("El daño no puede ser negativo.");
 		}
-		if (defenza >= cantidad) {
+		if (defensa >= cantidad) {
 			cantidad = 0;
 		} else {
-			cantidad -= defenza;
+			cantidad -= defensa;
 		}
 		vidaAct -= cantidad;
 		if (vidaAct < 0) {
-			vidaAct = 0;
+			setVidaAct(0);
 		}
 	}
 
@@ -174,7 +170,13 @@ public abstract class Personaje {
 	}
 
 	public boolean estaVivo() {
-		return vidaAct > 0;
+		
+		return estado instanceof EstadoVivo;
+	}
+	
+	public boolean estaMuerto() {
+		
+		return estado instanceof EstadoMuerto;
 	}
 
 	// =====================
@@ -188,8 +190,8 @@ public abstract class Personaje {
 
 	public abstract int calcularEfecto(String tipo, int cantidadBase);
 
-	public int getDefenza() {
-		return defenza;
+	public int getDefensa() {
+		return defensa;
 	}
 
 	public int getManaMax() {
@@ -242,4 +244,11 @@ public abstract class Personaje {
 		return elegido;
 	}
 
+	public void cambiarEstado(EstadoPersonaje estado) {
+		this.estado = estado;
+	}
+
+	public EstadoPersonaje getEstado() {
+		return estado;
+	}
 }

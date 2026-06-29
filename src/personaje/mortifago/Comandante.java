@@ -1,5 +1,7 @@
 package personaje.mortifago;
 
+import Estados.EstadoFurioso;
+import Estados.EstadoVivo;
 import hechizos.AvadaKedabra;
 import hechizos.Expelliarmus;
 import hechizos.Protego;
@@ -18,5 +20,18 @@ public class Comandante extends Mortifagos {
 		// TODO Auto-generated method stub
 		return 1.6;
 	}
+	
+	public void setVidaAct(int puntosVida) {
+		if(puntosVida <= 0 && getEstado() instanceof EstadoVivo) {
+			System.out.println(getEstado().enfurecerse());
+		}else if( puntosVida <= 0 && getEstado() instanceof EstadoFurioso) {
+			System.out.println(getEstado().morir());
+			super.setVidaAct(0);
+			
+		}
+		else
+			super.setVidaAct(puntosVida);
+	}
+	
 
 }
