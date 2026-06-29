@@ -10,9 +10,9 @@ public class Seguidor extends Mortifagos {
 	public Seguidor(TipoPersonaje tipo, int nivelMagia) {
 		super(tipo, nivelMagia, tipo.getModVida(), tipo.getModDanio(), tipo.getModMana(), tipo.getManaInicial(), 0);
 
-		aprenderHechizo(new Protego());
 		aprenderHechizo(new AvadaKedabra());
 		aprenderHechizo(new Expelliarmus());
+		aprenderHechizo(new Protego());
 
 	}
 

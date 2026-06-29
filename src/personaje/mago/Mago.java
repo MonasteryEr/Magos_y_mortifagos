@@ -15,10 +15,11 @@ public abstract class Mago extends Personaje {
 	@Override
 	public int calcularEfecto(String tipo, int cantidadBase) {
 		cantidadBase *= modificadorMagia();
+		
 		return switch (tipo) {
-		case "ATAQUE" -> (int) (cantidadBase * 1.25);
-		case "DEFENSA" -> (int) (cantidadBase * 1.25);
-		default -> cantidadBase;
+			case "ATAQUE" -> (int) (cantidadBase * 1.25);
+			case "DEFENSA" -> (int) (cantidadBase * 1.25);
+			default -> cantidadBase;
 		};
 	}
 

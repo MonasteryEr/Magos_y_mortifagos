@@ -11,8 +11,8 @@ public class Maestro extends Mago {
 		super(tipo, nivelMagia, tipo.getModVida(), tipo.getModDanio(), tipo.getModMana(), tipo.getManaInicial(), 0);
 		
 		aprenderHechizo(new Expelliarmus());
-		aprenderHechizo(new ExpectoPatronum());
 		aprenderHechizo(new Protego());
+		aprenderHechizo(new ExpectoPatronum());
 	}
 
 	@Override

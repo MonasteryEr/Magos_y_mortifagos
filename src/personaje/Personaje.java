@@ -33,8 +33,7 @@ public abstract class Personaje {
 
 	private static int contador = 1;
 
-	public Personaje(TipoPersonaje tipo, int nivelMagia, int modVida, int modDanio, int modMana, int manaInicial,
-			int defensa) {
+	public Personaje(TipoPersonaje tipo, int nivelMagia, int modVida, int modDanio, int modMana, int manaInicial, int defensa) {
 
 		this.tipo = tipo;
 		this.nivelMagia = nivelMagia;
@@ -156,18 +155,24 @@ public abstract class Personaje {
 	
 	public Hechizo obtenerHechizoDisponible() {
 		List<Hechizo> disponibles = new ArrayList<>();
+		
 		for (Hechizo h : hechizos) {
 			if (!hechizosUsadosEnRonda.contains(h)) {
 				disponibles.add(h);
 			}
 		}
+		
 		if (disponibles.isEmpty()) {
 			hechizosUsadosEnRonda.clear();
 			disponibles.addAll(hechizos);
 		}
+		
 		Random rand = new Random();
+		
 		Hechizo elegido = disponibles.get(rand.nextInt(disponibles.size()));
+		
 		hechizosUsadosEnRonda.add(elegido);
+		
 		return elegido;
 	}
 
@@ -175,6 +180,7 @@ public abstract class Personaje {
 		if (!estaVivo()) {
 			throw new IllegalStateException(tipo + " está eliminado y no puede lanzar hechizos.");
 		}
+		
 		hechizo.ejecutar(this, objetivo);
 	}
 
@@ -182,12 +188,15 @@ public abstract class Personaje {
 		if (cantidad < 0) {
 			throw new IllegalArgumentException("El daño no puede ser negativo.");
 		}
+		
 		if (defenza >= cantidad) {
 			cantidad = 0;
 		} else {
 			cantidad -= defenza;
 		}
+		
 		vidaAct -= cantidad;
+		
 		if (vidaAct < 0) {
 			vidaAct = 0;
 		}
@@ -202,7 +211,7 @@ public abstract class Personaje {
 		vidaAct += cantidad;
 
 		if (vidaAct > vidaMax) {
-			vidaAct = vidaMax; // No exceder mi limite de vida.
+			vidaAct = vidaMax;
 		}
 	}
 
