@@ -13,14 +13,14 @@ public class Expelliarmus implements Hechizo{
 	}
 
 	@Override
-	public String getNombre() {
-		
-		return "Expelliarmus";
+	public TipoHechizo getTipo() {
+		return TipoHechizo.ATAQUE;
 	}
 	
 	@Override
-	public TipoHechizo getTipo() {
-		return TipoHechizo.ATAQUE;
+	public String getNombre() {
+		
+		return "Expelliarmus";
 	}
 
 }

@@ -1,7 +1,9 @@
-package personaje;
+package hechizos;
 
-import hechizos.*;
 import org.junit.jupiter.api.*;
+
+import personaje.PersonajeMock;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HechizoTest {
@@ -113,7 +115,6 @@ public class HechizoTest {
     }
 
     // Nombres 
-
     @Test
     @DisplayName("Cada hechizo devuelve el nombre correcto")
     void hechizos_devuelvenNombresCorrecto() {

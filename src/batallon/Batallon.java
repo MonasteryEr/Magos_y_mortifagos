@@ -58,8 +58,6 @@ public class Batallon {
 		
 		Hechizo hechizo = atacante.obtenerHechizoDisponible();
 		
-		
-		
 		secuenciaAtaques.add(atacante);
 		
 		if(!hechizosLanzados.containsKey(atacante)) {
@@ -104,14 +102,11 @@ public class Batallon {
 		        " puntos de vida.");
 		}
 		else if (hechizo.getTipo() == TipoHechizo.DEFENSA) {
-
 		    System.out.println(
 		        atacante.getEtiqueta() +
 		        " aumenta su defensa en " + atacante.getDefenza());
-
 		}
 		else {
-
 		    System.out.println(
 		        objetivo.getEtiqueta() +
 		        " queda con " +
@@ -119,11 +114,9 @@ public class Batallon {
 		        " puntos de vida.");
 
 		    if (!objetivo.estaVivo()) {
-
 		        System.out.println(
 		            objetivo.getEtiqueta() +
 		            " ha sido eliminado.");
-
 		    }
 		}
 

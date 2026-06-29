@@ -133,10 +133,22 @@ public class Main {
         System.out.print(color + "[" + barra + "] " + vida + "/" + vidaMax + RESET);
     }
 
+    static void barraDeDefensa(int defenza, int defenzaMax) {
+        int total = 20;
+        int bloques = (defenzaMax > 0) ? (int) ((defenza / (double) defenzaMax) * total) : 0;
+        bloques = Math.max(0, Math.min(bloques, total));
+
+        String barra = "█".repeat(bloques) + "░".repeat(total - bloques);
+        System.out.print(CYAN + "[" + barra + "] " + defenza + "/" + defenzaMax + RESET);
+    }
+    
     static void mostrarPersonaje(Personaje p, String colorNombre) {
         int vidaMax = p.getVidaMax();
+        int defenzaMax = p.getDefenza(); // Ajustá según tu lógica
         System.out.print("  " + colorNombre + BOLD + p.getEtiqueta() + RESET + "  Vida: ");
         barraDeVida(p.getPuntosVida(), vidaMax);
+        System.out.print("  Defensa: ");
+        barraDeDefensa(p.getDefenza(), defenzaMax);
         System.out.println();
     }
 }

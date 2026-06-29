@@ -12,6 +12,7 @@ import java.util.HashSet;
 
 
 public abstract class Personaje {
+	
 	protected static final int VIDA_MAX_POR_NIVEL = 100;
 	protected static final int DAÑO_POR_NIVEL = 30;
 	protected static final int MANA_INI_POR_NIVEL = 30;
@@ -25,8 +26,10 @@ public abstract class Personaje {
 	private int manaAct;
 	private int dañoAtaque;
 	private int defenza;
+	
 	private TipoHechizo pasiva;
 	private Set<Hechizo> hechizos;
+	
 	private int numero;
 
 	private Set<Hechizo> hechizosUsadosEnRonda;
@@ -52,7 +55,6 @@ public abstract class Personaje {
 		hechizosUsadosEnRonda = new HashSet<>();
 
 		this.numero = contador++;
-
 	}
 
 

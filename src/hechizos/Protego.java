@@ -12,14 +12,14 @@ public class Protego implements Hechizo{
 	}
 	
 	@Override
+	public TipoHechizo getTipo() {
+		return TipoHechizo.DEFENSA;
+	}
+	
+	@Override
 	public String getNombre() {
 		
 		return "Protego";
-	}
-
-	@Override
-	public TipoHechizo getTipo() {
-		return TipoHechizo.DEFENSA;
 	}
 
 }
